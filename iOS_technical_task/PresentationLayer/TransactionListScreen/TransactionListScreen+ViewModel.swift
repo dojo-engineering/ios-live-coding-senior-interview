@@ -22,7 +22,7 @@ extension TransactionListScreen {
             state = .loading
 
             do {
-                let response = try await networkClient.get(from: .transactions(search: ""))
+                let response = try await networkClient.get(from: .transactions())
                 state = .loaded(response.map(Transaction.init(dto:)))
             } catch {
                 state = .error("Unable to load transactions.")

@@ -13,6 +13,20 @@ extension Endpoint where D == [TransactionDTO] {
     /// Returns an endpoint whose result contains the full mock list of transactions.
     ///
     /// `GET /v1/transactions`  *(mock)*
+    static func transactions() -> Endpoint<[TransactionDTO]> {
+        Endpoint(result: .success(TransactionDTO.mockList))
+    }
+
+    /// Returns an endpoint whose result contains transactions filtered by merchant name.
+    ///
+    /// `GET /v1/transactions?search={search}` *(mock)*
+    ///
+    /// The search term is trimmed of leading and trailing whitespace and newlines.
+    /// If the search term is empty, all mock transactions are returned.
+    /// Otherwise, a case-insensitive match against merchant names is performed.
+    ///
+    /// - Parameter search: The search string to filter transactions by merchant name.
+    /// - Returns: An `Endpoint` containing an array of `TransactionDTO` objects matching the search query.
     static func transactions(search: String) -> Endpoint<[TransactionDTO]> {
         let search = search.trimmingCharacters(in: .whitespacesAndNewlines)
         let list = if search.isEmpty {
