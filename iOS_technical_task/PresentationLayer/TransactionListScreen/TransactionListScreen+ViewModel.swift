@@ -11,13 +11,13 @@ extension TransactionListScreen {
         private(set) var state: LoadableState<[Transaction]> = .loading
 
         /// Whether transaction rows should render relative dates ("Yesterday")
-        /// instead of absolute ones. Read once at launch from the legacy
-        /// flags client.
+        /// instead of absolute ones. Read once at launch from the injected
+        /// flags provider.
         private(set) var useRelativeDates: Bool
 
-        init(networkClient: NetworkClient) {
+        init(networkClient: NetworkClient, flagsProvider: FlagsProviding = LegacyFlagsClient.shared) {
             self.networkClient = networkClient
-            self.useRelativeDates = LegacyFlagsClient.shared.isEnabled("transaction_row_relative_dates")
+            self.useRelativeDates = flagsProvider.isEnabled("transaction_row_relative_dates")
         }
 
         convenience init() {

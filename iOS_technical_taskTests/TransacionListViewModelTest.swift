@@ -19,11 +19,17 @@ struct TransacionListViewModelTest {
         #expect(transactions.first?.id == TransactionDTO.mockList.first?.id)
     }
 
-    @Test func test_useRelativeDates_reflectsLegacyFlag() {
-        // The app currently reads this at launch from the legacy flags
-        // client. This should keep passing once the flag source is migrated.
-        let viewModel = TransactionListScreen.ViewModel()
+    @Test func test_useRelativeDates_reflectsInjectedFlagsProvider() {
+        let enabledViewModel = TransactionListScreen.ViewModel(
+            networkClient: NetworkClient(),
+            flagsProvider: LegacyFlagsClient(values: ["transaction_row_relative_dates": true])
+        )
+        #expect(enabledViewModel.useRelativeDates == true)
 
-        #expect(viewModel.useRelativeDates == LegacyFlagsClient.shared.isEnabled("transaction_row_relative_dates"))
+        let disabledViewModel = TransactionListScreen.ViewModel(
+            networkClient: NetworkClient(),
+            flagsProvider: LegacyFlagsClient(values: ["transaction_row_relative_dates": false])
+        )
+        #expect(disabledViewModel.useRelativeDates == false)
     }
 }
