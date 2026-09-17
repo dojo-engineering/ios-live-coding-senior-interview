@@ -1,7 +1,7 @@
 import Foundation
 
 /// The interface the app has coded against for years.
-protocol LegacyFlagsProviding {
+protocol FlagsProviding {
     /// Returns `false` for any key that has not been configured.
     func isEnabled(_ key: String) -> Bool
 }
@@ -11,7 +11,7 @@ protocol LegacyFlagsProviding {
 /// It is synchronous, keyed by ad-hoc snake_case strings, and only ever
 /// returns booleans read once at startup from a local property list. Several
 /// call sites depend on it directly today.
-final class LegacyFlagsClient: LegacyFlagsProviding {
+final class LegacyFlagsClient: FlagsProviding {
 
     static let shared = LegacyFlagsClient()
 
