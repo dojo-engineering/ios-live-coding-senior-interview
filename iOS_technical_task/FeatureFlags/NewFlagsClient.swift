@@ -18,23 +18,19 @@ enum RemoteFlagsError: Error {
     case network
 }
 
-/// The raw client for the flags platform we are migrating to.
+/// A mock implementation of the new provider, standing in for its SDK.
 ///
 /// This mirrors the shape of a typical third-party remote-config /
 /// experimentation SDK: keys are namespaced strings owned by that platform,
 /// fetches are asynchronous and can fail, and values are typed rather than
-/// always booleans.
-protocol RemoteFlagsProvider {
-    func fetchFlag(key: String) async throws -> FlagValue
-}
-
-/// A mock implementation of the new provider, standing in for its SDK.
+/// always booleans. It exposes no app-defined protocol — like a real
+/// third-party SDK, it is a concrete type you integrate against directly.
 ///
 /// Note the deliberate differences from `LegacyFlagsClient`:
 /// - keys use the platform's own kebab-case namespace, not the app's old keys
 /// - every call is `async` and can `throw` (simulating network + outages)
 /// - values are typed via `FlagValue`, not a plain `Bool`
-final class NewFlagsClient: RemoteFlagsProvider {
+final class NewFlagsClient {
 
     private let remoteValues: [String: FlagValue]
     private let simulatedLatency: Duration
