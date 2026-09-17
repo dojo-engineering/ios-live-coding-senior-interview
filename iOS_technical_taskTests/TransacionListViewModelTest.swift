@@ -19,17 +19,19 @@ struct TransacionListViewModelTest {
         #expect(transactions.first?.id == TransactionDTO.mockList.first?.id)
     }
 
-    @Test func test_useRelativeDates_reflectsInjectedFlagsProvider() {
-        let enabledViewModel = TransactionListScreen.ViewModel(
+    @Test func test_useRelativeDates_whenFlagEnabled() {
+        let viewModel = TransactionListScreen.ViewModel(
             networkClient: NetworkClient(),
             flagsProvider: LegacyFlagsClient(values: ["transaction_row_relative_dates": true])
         )
-        #expect(enabledViewModel.useRelativeDates == true)
+        #expect(viewModel.useRelativeDates == true)
+    }
 
-        let disabledViewModel = TransactionListScreen.ViewModel(
+    @Test func test_useRelativeDates_whenFlagDisabled() {
+        let viewModel = TransactionListScreen.ViewModel(
             networkClient: NetworkClient(),
             flagsProvider: LegacyFlagsClient(values: ["transaction_row_relative_dates": false])
         )
-        #expect(disabledViewModel.useRelativeDates == false)
+        #expect(viewModel.useRelativeDates == false)
     }
 }
