@@ -1,3 +1,4 @@
+import FeatureFlags
 import Foundation
 import Observation
 
@@ -10,8 +11,14 @@ extension TransactionListScreen {
 
         private(set) var state: LoadableState<[Transaction]> = .loading
 
-        init(networkClient: NetworkClient) {
+        /// Whether transaction rows should render relative dates ("Yesterday")
+        /// instead of absolute ones. Read once at launch from the injected
+        /// flags provider.
+        private(set) var useRelativeDates: Bool
+
+        init(networkClient: NetworkClient, flagsProvider: FlagsProviding = LegacyFlagsClient.shared) {
             self.networkClient = networkClient
+            self.useRelativeDates = flagsProvider.isEnabled("transaction_row_relative_dates")
         }
 
         convenience init() {

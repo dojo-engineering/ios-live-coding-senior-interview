@@ -25,7 +25,7 @@ struct TransactionListScreen: View {
                 }
             case .loaded(let transactions):
                 List(transactions) { transaction in
-                    TransactionRow(transaction: transaction)
+                    TransactionRow(transaction: transaction, useRelativeDates: viewModel.useRelativeDates)
                 }
                 .overlay {
                     if transactions.isEmpty {
@@ -43,13 +43,14 @@ struct TransactionListScreen: View {
 
 private struct TransactionRow: View {
     let transaction: Transaction
+    let useRelativeDates: Bool
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text(transaction.merchantName)
                     .font(.headline)
-                Text(transaction.createdAt, style: .date)
+                Text(transaction.createdAt, style: useRelativeDates ? .relative : .date)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

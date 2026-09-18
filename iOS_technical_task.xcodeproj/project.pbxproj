@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A0F83F5330543BBC00C09887 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A0F83F5230543BBC00C09887 /* README.md */; };
+		A8620E00BA85F0D7E73BAE3F /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = B5D5C69BA9ED2C8300E99078 /* FeatureFlags */; };
+		EA889EBBCBFD700447A74499 /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 1C8AE36D20A6537C75160643 /* FeatureFlags */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8620E00BA85F0D7E73BAE3F /* FeatureFlags in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA889EBBCBFD700447A74499 /* FeatureFlags in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +100,7 @@
 			);
 			name = iOS_technical_task;
 			packageProductDependencies = (
+				B5D5C69BA9ED2C8300E99078 /* FeatureFlags */,
 			);
 			productName = iOS_technical_task;
 			productReference = A01A70942FA4A1C200689EA2 /* iOS_technical_task.app */;
@@ -119,6 +124,7 @@
 			);
 			name = iOS_technical_taskTests;
 			packageProductDependencies = (
+				1C8AE36D20A6537C75160643 /* FeatureFlags */,
 			);
 			productName = iOS_technical_taskTests;
 			productReference = A01A70A12FA4A1C400689EA2 /* iOS_technical_taskTests.xctest */;
@@ -152,6 +158,9 @@
 			);
 			mainGroup = A01A708B2FA4A1C200689EA2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				792CA1B237E1374A2C19FF24 /* XCLocalSwiftPackageReference "Packages/FeatureFlags" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A01A70952FA4A1C200689EA2 /* Products */;
 			projectDirPath = "";
@@ -494,6 +503,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		792CA1B237E1374A2C19FF24 /* XCLocalSwiftPackageReference "Packages/FeatureFlags" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/FeatureFlags;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C8AE36D20A6537C75160643 /* FeatureFlags */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureFlags;
+		};
+		B5D5C69BA9ED2C8300E99078 /* FeatureFlags */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureFlags;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A01A708C2FA4A1C200689EA2 /* Project object */;
 }
