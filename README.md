@@ -24,9 +24,13 @@ show a relative date ("Yesterday") or an absolute one. The client is
 synchronous, boolean-only, and called directly from view model code.
 
 The company is moving off it onto a new flags platform, represented here by
-`NewFlagsClient` (see `FeatureFlags/NewFlagsClient.swift`). It is not a
-drop-in replacement: it's asynchronous, can fail, uses its own key
-namespace, and returns typed values rather than plain booleans.
+`NewFlagsClient` (see `Packages/FeatureFlags/Sources/FeatureFlags/NewFlagsClient.swift`).
+It is not a drop-in replacement: it's asynchronous, can fail, uses its own
+key namespace, and returns typed values rather than plain booleans.
+
+`LegacyFlagsClient` and `NewFlagsClient` live in a local Swift package
+(`Packages/FeatureFlags`) that the app depends on via Swift Package Manager,
+rather than sitting directly inside the app target.
 
 ## Task
 
@@ -70,9 +74,6 @@ iOS_technical_task/
 │   └── TransactionsEndpoint.swift
 ├── Domain/
 │   └── Transaction.swift               — app-facing model
-├── FeatureFlags/
-│   ├── LegacyFlagsClient.swift          — the provider in use today
-│   └── NewFlagsClient.swift             — the provider to migrate to
 ├── Networking/
 │   ├── Endpoint.swift
 │   └── NetworkClient.swift
@@ -80,4 +81,10 @@ iOS_technical_task/
     └── TransactionListScreen/
         ├── TransactionListScreen.swift
         └── TransactionListScreen+ViewModel.swift
+
+Packages/FeatureFlags/                  — local Swift package, imported as `FeatureFlags`
+└── Sources/FeatureFlags/
+    ├── FlagsProviding.swift            — the abstraction the app already depends on
+    ├── LegacyFlagsClient.swift         — the provider in use today
+    └── NewFlagsClient.swift            — the provider to migrate to
 ```

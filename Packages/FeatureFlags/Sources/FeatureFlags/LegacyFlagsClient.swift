@@ -5,18 +5,18 @@ import Foundation
 /// It is synchronous, keyed by ad-hoc snake_case strings, and only ever
 /// returns booleans read once at startup from a local property list. Several
 /// call sites depend on it directly today.
-final class LegacyFlagsClient: FlagsProviding {
+public final class LegacyFlagsClient: FlagsProviding, Sendable {
 
-    static let shared = LegacyFlagsClient()
+    public static let shared = LegacyFlagsClient()
 
     private let values: [String: Bool]
 
-    init(values: [String: Bool] = ["transaction_row_relative_dates": true]) {
+    public init(values: [String: Bool] = ["transaction_row_relative_dates": true]) {
         self.values = values
     }
 
     /// Returns `false` for any key that has not been configured.
-    func isEnabled(_ key: String) -> Bool {
+    public func isEnabled(_ key: String) -> Bool {
         values[key] ?? false
     }
 }

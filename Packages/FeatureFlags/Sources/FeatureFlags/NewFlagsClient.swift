@@ -4,14 +4,14 @@ import Foundation
 ///
 /// Unlike the legacy client, this provider is not boolean-only: it can serve
 /// experiment variants and numeric rollout configuration too.
-enum FlagValue: Equatable {
+public enum FlagValue: Equatable {
     case bool(Bool)
     case string(String)
     case number(Double)
 }
 
 /// Errors surfaced by the new provider's SDK.
-enum RemoteFlagsError: Error {
+public enum RemoteFlagsError: Error {
     /// The flag key is not known to the remote configuration.
     case unknownKey
     /// The simulated network call failed.
@@ -30,13 +30,13 @@ enum RemoteFlagsError: Error {
 /// - keys use the platform's own kebab-case namespace, not the app's old keys
 /// - every call is `async` and can `throw` (simulating network + outages)
 /// - values are typed via `FlagValue`, not a plain `Bool`
-final class NewFlagsClient {
+public final class NewFlagsClient {
 
     private let remoteValues: [String: FlagValue]
     private let simulatedLatency: Duration
     private let failureRate: Double
 
-    init(
+    public init(
         remoteValues: [String: FlagValue] = ["transaction-row-relative-dates": .bool(true)],
         simulatedLatency: Duration = .milliseconds(300),
         failureRate: Double = 0.1
@@ -46,7 +46,7 @@ final class NewFlagsClient {
         self.failureRate = failureRate
     }
 
-    func fetchFlag(key: String) async throws -> FlagValue {
+    public func fetchFlag(key: String) async throws -> FlagValue {
         try await Task.sleep(for: simulatedLatency)
 
         if Double.random(in: 0...1) < failureRate {
